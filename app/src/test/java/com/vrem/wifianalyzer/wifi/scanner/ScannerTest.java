@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -196,6 +196,8 @@ public class ScannerTest {
         verify(wifiManager).getScanResults();
         verify(wifiManager).getConnectionInfo();
         verify(wifiManager).getConfiguredNetworks();
+
+        verifyWiFiManagerStartScan();
     }
 
     private void withWiFiManager() {
@@ -204,6 +206,18 @@ public class ScannerTest {
         when(wifiManager.getScanResults()).thenReturn(scanResults);
         when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
         when(wifiManager.getConfiguredNetworks()).thenReturn(configuredNetworks);
+
+        withWiFiManagerStartScan();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void verifyWiFiManagerStartScan() {
+        verify(wifiManager).startScan();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void withWiFiManagerStartScan() {
+        when(wifiManager.startScan()).thenReturn(true);
     }
 
     private void verifyTransfomer() {
